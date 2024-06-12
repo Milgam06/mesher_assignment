@@ -14,7 +14,7 @@ export const SwapContainer = styled.div`
 export const SwapContentContainer = styled.div`
   width: 40rem;
   height: 20rem;
-  border: 1px solid #fff;
+  border: 1px solid red;
 `;
 
 export const SwapTokenContainer = styled.div`
@@ -22,12 +22,14 @@ export const SwapTokenContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  border: 1px solid blue;
 `;
 
 export const SwapChangingTokenContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid #fff;
 `;
 //Token you want to change
 
