@@ -1,3 +1,5 @@
+import { Input } from "../input";
+
 import * as S from "./styled";
 
 export const SwapComponent: React.FC = () => {
@@ -5,7 +7,11 @@ export const SwapComponent: React.FC = () => {
     <>
       <S.SwapContainer>
         <S.SwapContentContainer>
-          <h1>asdf</h1>
+          <S.SwapTokenContainer>
+            <S.SwapChangingTokenContainer>
+              <Input />
+            </S.SwapChangingTokenContainer>
+          </S.SwapTokenContainer>
         </S.SwapContentContainer>
       </S.SwapContainer>
     </>
