@@ -1,7 +1,13 @@
+import { SwapComponent } from "@/components";
+
+import * as S from "./styled";
+
 export const MainPage: React.FC = () => {
   return (
     <>
-      <h1>main page</h1>
+      <S.MainPageContainer>
+        <SwapComponent />
+      </S.MainPageContainer>
     </>
   );
 };
