@@ -5,10 +5,16 @@ import { Text } from "@/components";
 
 import * as S from "./styled";
 
-export const ChoiceTokenButton: React.FC = () => {
+export interface ChoiceTokenButtonProps {
+  onClick: () => void;
+}
+
+export const ChoiceTokenButton: React.FC<ChoiceTokenButtonProps> = ({
+  onClick,
+}) => {
   return (
     <>
-      <S.ChoiceTokenButtonContainer>
+      <S.ChoiceTokenButtonContainer onClick={onClick}>
         <S.ChoiceTokenLogo src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400" />
         <Text size={1.6} weight={400} colors="white">
           BTC
