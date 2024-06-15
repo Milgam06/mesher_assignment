@@ -20,7 +20,7 @@ export const ModalProvider: React.FC<ModalProps> = ({ children }) => {
     <>
       <ModalContext.Provider value={{ open, close }}>
         {modal !== undefined && (
-          <Modal.Overlay>
+          <Modal.Overlay onCloseClick={close}>
             <Modal {...modal} />
           </Modal.Overlay>
         )}
