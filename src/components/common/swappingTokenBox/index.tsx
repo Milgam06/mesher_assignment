@@ -2,7 +2,7 @@ import { Input, ChoiceTokenButton, Text } from "@/components";
 
 import * as S from "./styled";
 
-export const SwappingTokenContainer: React.FC = () => {
+export const SwappingTokenBox: React.FC = () => {
   return (
     <>
       <S.SwappingTokenContainer>
@@ -19,3 +19,8 @@ export const SwappingTokenContainer: React.FC = () => {
     </>
   );
 };
+
+// export const SwappingTokenBox = Object.assign(S.SwappingTokenContainer, {
+//   TokenInput: S.SwappingTokenInputContainer,
+//   TokenDollarValue: S.SwappingTokenDollarValueContainer,
+// });

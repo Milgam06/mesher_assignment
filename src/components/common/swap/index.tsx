@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 
-import { SwappingTokenContainer, Button, Text } from "@/components";
+import { SwappingTokenBox, Button, Text } from "@/components";
 
 import * as S from "./styled";
 
@@ -30,8 +30,8 @@ export const SwapComponent: React.FC = () => {
             />
           </S.SwapContentHeader>
           <S.TokenContentContainer>
-            <SwappingTokenContainer />
-            <SwappingTokenContainer />
+            <SwappingTokenBox />
+            <SwappingTokenBox />
           </S.TokenContentContainer>
           <Button onClickHandler={onClick} disable={false}>
             <Text size={1.6} weight={400} colors="#fff">
