@@ -22,7 +22,8 @@ export const ModalCloseContainer = styled.div`
 
 export const ModalContainer = styled.div`
   min-width: 32rem;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 1rem;
   background-color: #2d2f34;
+  z-index: 999;
 `;
