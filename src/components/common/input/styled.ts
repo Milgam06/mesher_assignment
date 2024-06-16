@@ -11,7 +11,7 @@ export const InputWrapper = styled.input<InputStyleProps>`
   height: ${(props) => props.height};
   border: none;
   background-color: transparent;
-  font-size: ${(props) => (props.isFontLarge ? "3rem" : "1rem")};
+  font-size: ${(props) => (props.isFontLarge ? "3rem" : "1.2rem")};
   color: #fff;
   letter-spacing: 0.01rem;
   ::placeholder {
