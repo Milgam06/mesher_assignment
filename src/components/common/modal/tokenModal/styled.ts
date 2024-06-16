@@ -6,12 +6,9 @@ import { CenterContainer, SpaceBetweenContainer } from "@/components";
 export const TokenModalContainer = styled(SpaceBetweenContainer)`
   flex-direction: column;
   gap: 1.2rem;
+  margin: 1rem;
+  margin-bottom: 0;
   /* border: 1px solid #fff; */
-`;
-
-export const TokenModalLogo = styled.img`
-  width: 1.6rem;
-  height: 1.6rem;
 `;
 
 export const TokenModalHeader = styled(SpaceBetweenContainer)`
@@ -43,11 +40,10 @@ export const TokenModalSearchHistoryElement = styled(motion.div)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.4rem;
   border: 1px solid #65676d;
   border-radius: 1rem;
   cursor: pointer;
-  padding: 0.4rem;
+  padding: 0.4rem 0.6rem;
 `;
 
 export const TokenListContainer = styled.div`
@@ -73,8 +69,18 @@ export const TokenListLoadingContainer = styled(motion.div)`
 
 export const TokenListElement = styled(motion.div)`
   display: flex;
-  align-items: center;
-  padding: 1rem;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.8rem 1rem;
   cursor: pointer;
   letter-spacing: 0.08rem;
+`;
+
+export const TokenModalFooter = styled(CenterContainer)`
+  width: 100%;
+  background-color: #3e3e3f;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0.8rem;
 `;

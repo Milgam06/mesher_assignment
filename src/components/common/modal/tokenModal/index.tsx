@@ -1,28 +1,65 @@
 import { useEffect, useState } from "react";
 
 import { Text, Input } from "@/components";
-import { getList, Coin } from "@/api";
+import { CoinProps } from "@/api";
+import { useModal } from "@/providers";
+import { useSearchToken, useCoinPrice } from "@/hooks";
+import { useTokenStore, useSelectTokenStore } from "@/stores";
 
 import * as S from "./styled";
 
-export const TokenModal: React.FC = () => {
-  const [tokenList, setTokenList] = useState<Coin[] | undefined>([]);
-  const [loading, setLoading] = useState(true);
+export interface TokenModalProps {
+  isFirstToken: boolean;
+}
+
+export const TokenModal: React.FC<TokenModalProps> = ({ isFirstToken }) => {
+  const { getCoinPrice } = useCoinPrice();
+  const [searchedTokens, setSearchedTokens] = useState<CoinProps[] | undefined>(
+    []
+  );
+  const [searchHistory, setSearchHistory] = useState<CoinProps[]>([]);
+  const { tokenList, isLoading } = useTokenStore();
+  const { setSelectedFirstToken, setSelectedSecondToken } =
+    useSelectTokenStore();
+  const { close } = useModal();
+  const { searchingToken } = useSearchToken();
+
+  const onClick = () => {
+    alert("준비 중입니다.");
+  };
 
   useEffect(() => {
-    const fetchTokenList = async () => {
-      try {
-        const response = await getList();
-        setTokenList(response);
-      } catch (error) {
-        console.error("Failed to fetch token list:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTokenList();
+    const storedHistory = localStorage.getItem("searchHistory");
+    if (storedHistory === null) {
+      localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    } else {
+      setSearchHistory(JSON.parse(storedHistory));
+    }
   }, []);
+
+  const shownTokenList = tokenList?.slice(0, 30);
+
+  const onSearchToken = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const result = searchingToken({ searchValue: e.target.value });
+    setSearchedTokens(result);
+  };
+  const onTokenClick = (token: CoinProps) => {
+    isFirstToken
+      ? (setSelectedFirstToken(token), getCoinPrice({ coinId: token.id }))
+      : setSelectedSecondToken(token);
+    const isTokenInHistory = searchHistory.some(
+      (historyToken) => historyToken.id === token.id
+    );
+    if (!isTokenInHistory) {
+      const updatedHistory = [token, ...searchHistory].slice(0, 7);
+      setSearchHistory(updatedHistory);
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+    }
+    console.log(token);
+    close();
+  };
+  console.log(shownTokenList, isLoading);
+  console.log(localStorage.getItem("searchHistory"));
 
   return (
     <>
@@ -38,39 +75,67 @@ export const TokenModal: React.FC = () => {
             width="100%"
             height="2rem"
             inputType="string"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onSearchToken(e)
+            }
           />
         </S.TokenSearchInputContainer>
         <S.TokenModalSearchHistoryContainer>
-          {!tokenList !== undefined ? (
-            // tokenList.map((item) => (
-            //   <S.TokenModalSearchHistoryElement>
-            //     <Text size={1.2} weight={400} colors="#fff">
-            //       {item.symbol}
-            //     </Text>
-            //   </S.TokenModalSearchHistoryElement>
-            // ))
-            <></>
-          ) : (
-            <Text size={2} weight={400}>
-              Loading..
-            </Text>
-          )}
-        </S.TokenModalSearchHistoryContainer>
-        <S.TokenListContainer>
-          {!loading && tokenList !== undefined ? (
-            tokenList.map((item, key) => (
-              <S.TokenListElement
-                key={key}
+          {searchHistory.map((item) => {
+            return (
+              <S.TokenModalSearchHistoryElement
                 whileHover={{
                   backgroundColor: "#65676d",
-                  transition: { duration: 0.1 },
+                  transition: { duration: 0.2 },
                 }}
+                onClick={() => onTokenClick(item)}
               >
-                <Text size={1.4} weight={400} colors="#fff">
-                  {item.symbol.toUpperCase()}
+                <Text size={1.6} weight={400} colors="#fff">
+                  {item.name}
                 </Text>
-              </S.TokenListElement>
-            ))
+              </S.TokenModalSearchHistoryElement>
+            );
+          })}
+        </S.TokenModalSearchHistoryContainer>
+        <S.TokenListContainer>
+          {isLoading && shownTokenList !== undefined ? (
+            searchedTokens !== undefined && searchedTokens.length > 0 ? (
+              searchedTokens.map((item, key) => (
+                <S.TokenListElement
+                  key={key}
+                  whileHover={{
+                    backgroundColor: "#65676d",
+                    transition: { duration: 0.1 },
+                  }}
+                  onClick={() => onTokenClick(item)}
+                >
+                  <Text size={1.4} weight={400} colors="#fff">
+                    {item.symbol.toUpperCase()}
+                  </Text>
+                  <Text size={0.8} weight={200} colors="#fff">
+                    {item.name}
+                  </Text>
+                </S.TokenListElement>
+              ))
+            ) : (
+              shownTokenList.map((item, key) => (
+                <S.TokenListElement
+                  key={key}
+                  whileHover={{
+                    backgroundColor: "#65676d",
+                    transition: { duration: 0.1 },
+                  }}
+                  onClick={() => onTokenClick(item)}
+                >
+                  <Text size={1.4} weight={400} colors="#fff">
+                    {item.name.toUpperCase()}
+                  </Text>
+                  <Text size={0.8} weight={200} colors="#fff">
+                    {item.name}
+                  </Text>
+                </S.TokenListElement>
+              ))
+            )
           ) : (
             <S.TokenListLoadingContainer
               initial={{ opacity: 0.6 }}
@@ -85,6 +150,11 @@ export const TokenModal: React.FC = () => {
           )}
         </S.TokenListContainer>
       </S.TokenModalContainer>
+      <S.TokenModalFooter onClick={onClick}>
+        <Text size={2} weight={300} colors="#4770d6">
+          토큰 목록 관리
+        </Text>
+      </S.TokenModalFooter>
     </>
   );
 };

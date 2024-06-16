@@ -6,18 +6,24 @@ import { Text } from "@/components";
 import * as S from "./styled";
 
 export interface ChoiceTokenButtonProps {
+  selectTokenId: string;
   onClick: () => void;
 }
 
 export const ChoiceTokenButton: React.FC<ChoiceTokenButtonProps> = ({
+  selectTokenId,
   onClick,
 }) => {
   return (
     <>
-      <S.ChoiceTokenButtonContainer onClick={onClick}>
-        <S.ChoiceTokenLogo src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400" />
+      <S.ChoiceTokenButtonContainer
+        onClick={onClick}
+        whileHover={{
+          backgroundColor: "#2d2f34",
+        }}
+      >
         <Text size={1.6} weight={400} colors="white">
-          BTC
+          {selectTokenId}
         </Text>
         <FontAwesomeIcon
           icon={faBars}

@@ -1,16 +1,13 @@
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
-import { SpaceBetweenContainer } from "@/components/styles";
-
-export const ChoiceTokenButtonContainer = styled(SpaceBetweenContainer)`
-  background-color: #2d2f34;
+export const ChoiceTokenButtonContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #303030;
   padding: 0.6rem 0.8rem;
   border-radius: 1.4rem;
   gap: 0.6rem;
   cursor: pointer;
-`;
-
-export const ChoiceTokenLogo = styled.img`
-  width: 2rem;
-  height: 2rem;
 `;

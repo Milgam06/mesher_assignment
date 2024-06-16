@@ -1,3 +1,4 @@
+import { SpaceBetweenContainer } from "@/components";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
@@ -20,9 +21,9 @@ export const ModalCloseContainer = styled.div`
   height: 100%;
 `;
 
-export const ModalContainer = styled.div`
+export const ModalContainer = styled(SpaceBetweenContainer)`
+  flex-direction: column;
   min-width: 32rem;
-  padding: 1rem;
   border-radius: 1rem;
   background-color: #2d2f34;
   z-index: 999;

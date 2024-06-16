@@ -2,9 +2,10 @@ import { HTMLInputTypeAttribute } from "react";
 import * as S from "./styled";
 
 export interface InputProps extends S.InputStyleProps {
-  placeholder: string;
+  placeholder: string | number;
   inputType: HTMLInputTypeAttribute;
   value?: string;
+  ref?: React.RefObject<HTMLInputElement>;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,7 +14,9 @@ export const Input: React.FC<InputProps> = ({
   inputType,
   width,
   height,
+  ref,
   isFontLarge,
+
   onChange,
 }) => {
   return (
@@ -27,6 +30,7 @@ export const Input: React.FC<InputProps> = ({
         pattern={inputType === "number" ? "^d+(.d{1,10})?$" : undefined}
         onChange={onChange}
         onWheel={(event) => (event.target as HTMLElement).blur()}
+        ref={ref}
         step={inputType === "number" ? "0.0000000001" : undefined}
       />
     </>
