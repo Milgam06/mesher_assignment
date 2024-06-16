@@ -1,11 +1,29 @@
+import { useEffect, useState } from "react";
+
 import { Text, Input } from "@/components";
-import { getList } from "@/api";
+import { getList, Coin } from "@/api";
 
 import * as S from "./styled";
 
 export const TokenModal: React.FC = () => {
-  const response = getList();
-  console.log(response);
+  const [tokenList, setTokenList] = useState<Coin[] | undefined>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTokenList = async () => {
+      try {
+        const response = await getList();
+        setTokenList(response);
+      } catch (error) {
+        console.error("Failed to fetch token list:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTokenList();
+  }, []);
+
   return (
     <>
       <S.TokenModalContainer>
@@ -23,87 +41,48 @@ export const TokenModal: React.FC = () => {
           />
         </S.TokenSearchInputContainer>
         <S.TokenModalSearchHistoryContainer>
-          {response.map((item, i) => {
-            return (
-              <S.TokenModalSearchHistoryElement key={i}>
-                <Text size={1.2} weight={400} colors="#fff">
-                  {item}
-                </Text>
-              </S.TokenModalSearchHistoryElement>
-            );
-          })}
+          {!tokenList !== undefined ? (
+            // tokenList.map((item) => (
+            //   <S.TokenModalSearchHistoryElement>
+            //     <Text size={1.2} weight={400} colors="#fff">
+            //       {item.symbol}
+            //     </Text>
+            //   </S.TokenModalSearchHistoryElement>
+            // ))
+            <></>
+          ) : (
+            <Text size={2} weight={400}>
+              Loading..
+            </Text>
+          )}
         </S.TokenModalSearchHistoryContainer>
         <S.TokenListContainer>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
-          <S.TokenListElement>
-            <Text size={1.2} weight={400} colors="#fff">
-              BTC
-            </Text>
-          </S.TokenListElement>
+          {!loading && tokenList !== undefined ? (
+            tokenList.map((item, key) => (
+              <S.TokenListElement
+                key={key}
+                whileHover={{
+                  backgroundColor: "#65676d",
+                  transition: { duration: 0.1 },
+                }}
+              >
+                <Text size={1.4} weight={400} colors="#fff">
+                  {item.symbol.toUpperCase()}
+                </Text>
+              </S.TokenListElement>
+            ))
+          ) : (
+            <S.TokenListLoadingContainer
+              initial={{ opacity: 0.6 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0.6 }}
+              transition={{ duration: 1.2, repeat: Infinity }}
+            >
+              <Text size={1.8} weight={500} colors="#fff">
+                Loading...
+              </Text>
+            </S.TokenListLoadingContainer>
+          )}
         </S.TokenListContainer>
       </S.TokenModalContainer>
     </>

@@ -54,7 +54,6 @@ export const TokenListContainer = styled.div`
   width: 100%;
   height: 20rem;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   overflow-y: auto;
   border-top: 1px solid #65676d;
@@ -63,8 +62,19 @@ export const TokenListContainer = styled.div`
   }
 `;
 
+export const TokenListLoadingContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  letter-spacing: 0.2rem;
+`;
+
 export const TokenListElement = styled(motion.div)`
   display: flex;
   align-items: center;
   padding: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.08rem;
 `;
