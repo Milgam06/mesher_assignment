@@ -1,8 +1,11 @@
 import { Text, Input } from "@/components";
+import { getList } from "@/api";
 
 import * as S from "./styled";
 
 export const TokenModal: React.FC = () => {
+  const response = getList();
+  console.log(response);
   return (
     <>
       <S.TokenModalContainer>
@@ -19,7 +22,89 @@ export const TokenModal: React.FC = () => {
             inputType="string"
           />
         </S.TokenSearchInputContainer>
-        <S.TokenModalSearchHistoryContainer></S.TokenModalSearchHistoryContainer>
+        <S.TokenModalSearchHistoryContainer>
+          {response.map((item, i) => {
+            return (
+              <S.TokenModalSearchHistoryElement key={i}>
+                <Text size={1.2} weight={400} colors="#fff">
+                  {item}
+                </Text>
+              </S.TokenModalSearchHistoryElement>
+            );
+          })}
+        </S.TokenModalSearchHistoryContainer>
+        <S.TokenListContainer>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+          <S.TokenListElement>
+            <Text size={1.2} weight={400} colors="#fff">
+              BTC
+            </Text>
+          </S.TokenListElement>
+        </S.TokenListContainer>
       </S.TokenModalContainer>
     </>
   );
