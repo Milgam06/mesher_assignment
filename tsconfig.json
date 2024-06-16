@@ -31,7 +31,7 @@
       "@/api/*": ["src/api/*"],
       "@/styles/*": ["src/styles/*"],
       "@/types/*": ["src/types/*"],
-      "@/store/*": ["src/store/*"],
+      "@/store/*": ["src/stores/*"],
       "@/utils/*": ["src/utils/*"],
       "@/assets/*": ["src/assets/*"]
     }
