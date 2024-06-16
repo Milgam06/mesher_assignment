@@ -1,15 +1,26 @@
 import axios from "axios";
 
-export interface Coin {
+export interface CoinProps {
   id: string;
   symbol: string;
   name: string;
+}
+
+export interface CoinPriceProps {
+  [id: string]: {
+    usd: number;
+    usd_market_cap: number;
+    usd_24h_vol: number;
+    usd_24h_change: number;
+    last_updated_at: number;
+  };
 }
 
 export const API_SUFFIX = {
   BASEURL: import.meta.env.VITE_APIURL,
   LIST: "/coins/list",
   PRICE: "/simple/price?vs_currencies=USD&ids=",
+  POPULAR: "/coins/top_gainers_losers",
 };
 
 export const instance = axios.create({

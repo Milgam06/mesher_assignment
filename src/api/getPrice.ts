@@ -1,8 +1,13 @@
-import { API_SUFFIX, instance } from "./api";
+import { AxiosResponse } from "axios";
+import { API_SUFFIX, instance, CoinPriceProps } from ".";
 
-export const getPrice = async (id: string) => {
+export const getPrice = async (
+  id: string
+): Promise<CoinPriceProps | undefined> => {
   try {
-    const response = await instance.get(API_SUFFIX.PRICE + id);
+    const response: AxiosResponse<CoinPriceProps> = await instance.get(
+      API_SUFFIX.PRICE + id
+    );
     console.log(response.data);
     return response.data;
   } catch (error) {
