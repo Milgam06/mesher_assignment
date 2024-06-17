@@ -33,7 +33,7 @@ export const SwapComponent: React.FC = () => {
   const [secondTokenValue, setSecondTokenValue] = useState<string>("");
 
   const onClick = () => {
-    console.log("Swap clicked");
+    alert("준비 중입니다.");
   };
 
   const openTokenModal = ({ isFirstToken }: TokenModalProps) => {
@@ -69,40 +69,13 @@ export const SwapComponent: React.FC = () => {
   const onTokenChange = ({ event }: TokenChangeProps) => {
     const value = event.target.value;
     if (event.target.value !== "") {
-      //     setTokenChange(true),
-      //       setFirstTokenPrice(Number((Number(value) * tokenPrice).toFixed(10)));
-      //     setFirstTokenValue(
-      //       Number(value).toFixed(10)
-      //         ? value.split(".")[1].slice(0, 10)
-      //         : value.toString()
-      //     );
-      //     setSecondTokenValue(
-      //       (tokenPrice / secondTokenPrice).toFixed(10).toString()
-      //     );
-      //     console.log(firstTokenValue, secondTokenValue);
-      //   } else {
-      //     setTokenChange(false);
-      //     setFirstTokenPrice(0);
-      //   }
-      // }; if (value !== "") {
-      // 입력값이 숫자이고 소수점 이하 10자리 이내인지 확인
-      const isValidInput = /^\d*\.?\d{0,10}$/.test(value);
-      if (isValidInput) {
-        setTokenChange(true);
-        setFirstTokenPrice(Number((Number(value) * tokenPrice).toFixed(10)));
-        setFirstTokenValue(value); // 소수점 10자리 이하로만 설정
-        setSecondTokenValue(
-          ((Number(value) * tokenPrice) / secondTokenPrice)
-            .toFixed(10)
-            .toString()
-        );
-        console.log(firstTokenValue, secondTokenValue);
-      }
+      setTokenChange(true), setFirstTokenPrice(Number(value) * tokenPrice);
+      setFirstTokenValue(value);
+      setSecondTokenValue((tokenPrice / secondTokenPrice).toString());
+      console.log(firstTokenValue, secondTokenValue);
     } else {
       setTokenChange(false);
       setFirstTokenPrice(0);
-      setFirstTokenValue("");
-      setSecondTokenValue("0.0");
     }
   };
 
@@ -161,8 +134,7 @@ export const SwapComponent: React.FC = () => {
                   placeholder={
                     firstTokenValue !== ""
                       ? (firstTokenPrice / secondTokenPrice).toFixed(10)
-                      : // setSecondTokenValue(""))
-                        "0.0"
+                      : "0.0"
                   }
                   width="22rem"
                   height="4rem"
